@@ -14,8 +14,8 @@ enum HoleType: String, Codable {
     case dogRight = "arrowshape.turn.up.right.fill"
 }
 
-@Model
-final class Hole {
+
+final class Hole: Identifiable {
     
     var id: Int
     var par: Int
@@ -23,6 +23,7 @@ final class Hole {
     var whites: Int
     var reds: Int
     var holeType: HoleType
+    
     init(id: Int, par: Int, blues: Int, whites: Int, reds: Int, holeType: HoleType = .straight) {
         self.id = id
         self.par = par

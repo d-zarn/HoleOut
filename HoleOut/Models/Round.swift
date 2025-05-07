@@ -17,13 +17,23 @@ final class Round {
     var holesPlayed: Int
     var startTime: Date?
     var endTime: Date?
-    var course: Course
+    var courseId: UUID
+    
+    var course: Course {
+        
+        guard let course = CourseRepository.shared.getCourse(byId: courseId) else {
+            Logger(origin: "Round").log("Failed to find course with ID \(courseId)", level: .error)
+            return CourseRepository.shared.getAllCourses()[0]
+        }
+        return course
+    }
+    
     var scores: [Int]
     var playedHoles: [Bool]
 
     init(at course: Course) {
         self.id = UUID()
-        self.course = course
+        self.courseId = course.id
         self.date = Date()
         self.scores = course.holes.map { $0.par }
         self.playedHoles = Array(repeating: false, count: course.holes.count)

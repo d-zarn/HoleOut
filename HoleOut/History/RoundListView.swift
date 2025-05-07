@@ -12,7 +12,7 @@ struct RoundListView: View {
     
     @Query(sort: \Round.date, order: .reverse) private var rounds: [Round]
     @State private var searchText = ""
-    @EnvironmentObject private var roundVM: RoundViewModel
+    @EnvironmentObject private var roundPersistence: RoundPersistenceManager
     private let logger = Logger(origin: "RoundListView")
     
     // allow search by course or date
@@ -45,7 +45,7 @@ struct RoundListView: View {
                             RoundCard(for: round, amended: false)
                                 .swipeActions {
                                     Button(role: .destructive) {
-                                        roundVM.deleteRound(round)
+                                        roundPersistence.deleteRound(round)
                                     } label: {
                                         Label("Delete", systemImage: "trash")
                                     }
@@ -65,5 +65,5 @@ struct RoundListView: View {
     @MainActor in
     RoundListView()
         .modelContainer(MockData.container)
-        .environmentObject(RoundViewModel.preview)
+        .environmentObject(RoundPersistenceManager.preview)
 }

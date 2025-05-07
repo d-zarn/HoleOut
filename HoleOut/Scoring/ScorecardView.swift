@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ScorecardView: View {
-    @EnvironmentObject private var roundVM: RoundViewModel
+    @EnvironmentObject private var activeRoundManager: ActiveRoundManager
+    @EnvironmentObject private var roundPersistence: RoundPersistenceManager
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @Binding var selectedTab: Int
@@ -20,13 +21,13 @@ struct ScorecardView: View {
         VStack {
             fullStatusBar
             
-            if let round = roundVM.currentRound {
+            if let round = activeRoundManager.currentRound {
                 ScrollView {
                     VStack {
                         ForEach(round.course.holes.indices, id: \.self) { index in
                             HoleScoringCard(
                                 hole: round.course.holes[index],
-                                score: roundVM.scoreBindings[index]
+                                score: activeRoundManager.scoreBindings[index]
                             )
                         }
                     }
@@ -66,16 +67,16 @@ struct ScorecardView: View {
         HStack {
             StatItem(
                 label: "Total",
-                value: roundVM.currentRound?.totalScore ?? 0
+                value: activeRoundManager.currentRound?.totalScore ?? 0
             )
             Spacer()
             StatItem(
                 label: "Front",
-                value: roundVM.currentRound?.frontNine ?? 0)
+                value: activeRoundManager.currentRound?.frontNine ?? 0)
             Spacer()
             StatItem(
                 label: "Back",
-                value: roundVM.currentRound?.backNine ?? 0)
+                value: activeRoundManager.currentRound?.backNine ?? 0)
         }
     }
     
@@ -84,7 +85,7 @@ struct ScorecardView: View {
             // discard button
             Button {
                 logger.log("Discard pressed")
-                roundVM.abandonRound()
+                activeRoundManager.abandonRound()
                 dismiss()
             } label: {
                 Label("Discard", systemImage: "trash")
@@ -96,7 +97,9 @@ struct ScorecardView: View {
 
             Button {
                 logger.log("Save pressed")
-                roundVM.saveRound()
+                if let completedRound = activeRoundManager.completeRound() {
+                    roundPersistence.saveRound(completedRound)
+                }
                 dismiss()
                 selectedTab = 1
             } label: {
@@ -114,5 +117,5 @@ struct ScorecardView: View {
 
 #Preview {
     ScorecardView(selectedTab: .constant(0))
-        .environmentObject(RoundViewModel.preview)
+        .environmentObject(ActiveRoundManager.preview)
 }

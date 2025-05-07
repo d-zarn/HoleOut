@@ -11,7 +11,7 @@ struct CourseCard: View {
     
     @State private var showingCourseDetail = false
     @State private var showingScorecardView = false
-    @EnvironmentObject private var roundVM: RoundViewModel
+    @EnvironmentObject private var activeRoundManager: ActiveRoundManager
     @Binding var selectedTab: Int
     private let course: Course
     private let logger: Logger
@@ -87,7 +87,7 @@ struct CourseCard: View {
     // Shows the ScorecardView
     private var startRoundButton: some View {
         Button {
-            roundVM.startNewRound(at: course)
+            activeRoundManager.startNewRound(at: course)
             showingScorecardView = true
         } label: {
             Label("Start Round", systemImage: "figure.golf")

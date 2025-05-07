@@ -29,7 +29,7 @@ struct RelativeScore: View {
         case let score where score > 9:
             Text("+\(relative)")
                 .foregroundStyle(.red)
-        case let score:
+        case let _score:
             Text("\(relative)")
                 .foregroundStyle(.green)
             

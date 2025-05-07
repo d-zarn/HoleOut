@@ -8,8 +8,7 @@
 import Foundation
 import SwiftData
 
-@Model
-final class Course {
+final class Course: Identifiable, Equatable {
     // MARK: Properties
     
     // Identifiers
@@ -33,6 +32,11 @@ final class Course {
         self.reds = reds
         self.par = par
         self.holes = holes.sorted { $0.id < $1.id }
+    }
+    
+    /// Equatable Conformance
+    static func == (lhs: Course, rhs: Course) -> Bool {
+        return lhs.id == rhs.id
     }
     
     // MARK: - Computed Properties

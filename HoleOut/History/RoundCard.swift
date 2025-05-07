@@ -44,11 +44,10 @@ struct RoundCard: View {
                     Label(course.name, systemImage: "flag.fill")
                         .font(.headline)
                         .bold()
-                }
-                if !amended {
                     Label(round.dateString, systemImage: "calendar")
                         .foregroundStyle(.secondary)
-                } else {
+                }
+                else {
                     Label(round.dateString, systemImage: "calendar")
                         .font(.headline)
                         .bold()

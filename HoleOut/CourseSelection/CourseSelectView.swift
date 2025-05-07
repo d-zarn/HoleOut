@@ -11,7 +11,6 @@ struct CourseSelectView: View {
     
     @Binding var selectedTab: Int
     @State private var searchText = ""
-    @EnvironmentObject private var roundVM: RoundViewModel
     private let logger = Logger(origin: "CourseSelectView")
     
     // allow search by name or address
