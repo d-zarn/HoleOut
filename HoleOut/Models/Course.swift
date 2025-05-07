@@ -1,12 +1,10 @@
-//
-//  Course.swift
-//  HoleOut
-//
-//  Created by Dylan Zarn on 2024-12-20.
-//
+/**
+ Represents a golf course.
+ Courses have a name, a unique ID, address, total yardages, and an array of holes.
+ Computed properties tally total yardages and par for the holes in the holes array.
+ */
 
 import Foundation
-import SwiftData
 
 final class Course: Identifiable, Equatable {
     // MARK: Properties
@@ -41,6 +39,8 @@ final class Course: Identifiable, Equatable {
     
     // MARK: - Computed Properties
     
+    // Total course yardages from tee locations
+    
     var totalBlues: Int {
         holes.reduce(0) { $0 + $1.blues }
     }
@@ -53,7 +53,7 @@ final class Course: Identifiable, Equatable {
         holes.reduce(0) { $0 + $1.reds }
     }
     
-    // Course yardage totals front 9
+    // Course yardage totals front 9 tee locations
     
     var frontBlues: Int {
         holes.prefix(9).reduce(0) { $0 + $1.blues }
@@ -67,7 +67,7 @@ final class Course: Identifiable, Equatable {
         holes.prefix(9).reduce(0) { $0 + $1.reds }
     }
     
-    // Course yardage totals back 9
+    // Course yardage totals back 9 tee locations
     
     var backBlues: Int {
         holes.suffix(9).reduce(0) { $0 + $1.blues }
@@ -81,7 +81,7 @@ final class Course: Identifiable, Equatable {
         holes.suffix(9).reduce(0) { $0 + $1.reds }
     }
     
-    // Par totals
+    // Par totals for front and back
     
     var frontPar: Int {
         holes.prefix(9).reduce(0) { $0 + $1.par }

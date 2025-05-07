@@ -1,9 +1,7 @@
-//
-//  CourseCardView.swift
-//  HoleOut
-//
-//  Created by Dylan Zarn on 2024-12-22.
-//
+/**
+ Displays Course name and address and contains buttons for displaying the CourseDetailSheet and starting a new round.
+ Starting a new round generates a new round and navigates to the ScorecardView for that course.
+ */
 
 import SwiftUI
 
@@ -43,7 +41,7 @@ struct CourseCard: View {
     
     // MARK: - Components
     
-    // Displays name, address, and par
+    /// Displays name, address, and par
     private var courseDetails: some View {
         HStack {
             VStack (alignment: .leading) {
@@ -61,7 +59,7 @@ struct CourseCard: View {
     }
     
     
-    // Groups both buttons
+    /// Groups both buttons
     private var buttonSet: some View {
         HStack {
             previewCourseButton
@@ -72,7 +70,7 @@ struct CourseCard: View {
         .frame(maxHeight: 50)
     }
     
-    // Shows the CourseDetailSheet
+    /// Shows the CourseDetailSheet
     private var previewCourseButton: some View {
         Button {
             showingCourseDetail = true
@@ -84,7 +82,7 @@ struct CourseCard: View {
         .buttonStyle(.borderedProminent)
     }
     
-    // Shows the ScorecardView
+    /// Shows the ScorecardView on tap
     private var startRoundButton: some View {
         Button {
             activeRoundManager.startNewRound(at: course)

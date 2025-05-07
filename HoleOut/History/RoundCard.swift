@@ -1,9 +1,7 @@
-//
-//  RoundCardView.swift
-//  HoleOut
-//
-//  Created by Dylan Zarn on 2024-12-22.
-//
+/**
+ Displays brief information about a saved round in either the RoundListView or the CourseDetailSheet
+ Used as amended in the CourseDetailSheet and unamended in the RoundListView
+ */
 
 import SwiftUI
 
@@ -35,8 +33,8 @@ struct RoundCard: View {
     
     // MARK: - Components
     
-    // Shows course name as title if not amended
-    // Only shows date if amended
+    /// Shows course name as title if not amended
+    /// Only shows date if amended
     private var headerSection: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -63,7 +61,8 @@ struct RoundCard: View {
         }
         
     }
-    // Shows the scores for the round
+    
+    /// Shows the scores for the round
     private var statSection: some View {
         GroupBox {
             HStack {

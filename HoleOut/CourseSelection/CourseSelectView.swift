@@ -1,9 +1,8 @@
-//
-//  ContentView.swift
-//  HoleOut
-//
-//  Created by Dylan Zarn on 2024-12-20.
-//
+/**
+ Opening view.
+ Displays the list of avaliable courses as CourseCards.
+ Can be searched by address or course name. Acts as a constant bottom tab.
+ */
 
 import SwiftUI
 
@@ -13,8 +12,8 @@ struct CourseSelectView: View {
     @State private var searchText = ""
     private let logger = Logger(origin: "CourseSelectView")
     
-    // allow search by name or address
-    // contains all courses if no search is entered
+    /// Allow search by name or address.
+    /// Contains all courses if no search is entered.
     private var searchResults: [Course] {
         if searchText.isEmpty {
             return CourseRepository.shared.getAllCourses()
@@ -25,8 +24,8 @@ struct CourseSelectView: View {
         }
     }
 
-    // If search results are empty, shows ContentUnavailable.
-    // If no search is entered, show all courses
+    /// If search results are empty, shows ContentUnavailable.
+    /// If no search is entered, show all courses
     var body: some View {
         NavigationStack {
             Group {

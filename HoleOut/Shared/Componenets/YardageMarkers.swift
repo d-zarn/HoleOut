@@ -1,9 +1,7 @@
-//
-//  YardagesView.swift
-//  HoleOut
-//
-//  Created by Dylan Zarn on 2024-11-01.
-//
+/**
+ Shared view for yardage markers. Can display in a VStack or even spaced HStack.
+ Displayed as coloured marker with yardage next to it in text
+ */
 
 import SwiftUI
 

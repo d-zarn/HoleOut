@@ -1,13 +1,15 @@
-//
-//  ScorecardView.swift
-//  HoleOut
-//
-//  Created by Dylan Zarn on 2024-12-23.
-//
+/**
+ Main view for Scoring system. Displays each hole as a list of HoleScoringCards.
+ Displays a static status bar at the top of the view to display current score for front and back nines and total.
+ Status bar can be tapped to reveal save and discard buttons
+ Saving round commits to history and navigates to the RoundListView
+ Discarding a round deletes the round and navigates back to the CourseSelectView
+ */
 
 import SwiftUI
 
 struct ScorecardView: View {
+    
     @EnvironmentObject private var activeRoundManager: ActiveRoundManager
     @EnvironmentObject private var roundPersistence: RoundPersistenceManager
     @Environment(\.modelContext) private var modelContext
@@ -42,6 +44,8 @@ struct ScorecardView: View {
     
     // MARK: - Components
     
+    /// Uses roundStatusBar to display the cumulative scores for front and back nines and total.
+    /// Can be tapped to reveal save / discard buttons
     private var fullStatusBar: some View {
         GroupBox {
             VStack {
@@ -66,6 +70,7 @@ struct ScorecardView: View {
         }
     }
     
+    /// Displays cumulative scores for front / back and total
     private var roundStatusBar: some View {
         HStack {
             StatItem(
@@ -83,6 +88,9 @@ struct ScorecardView: View {
         }
     }
     
+    /// Buttons for save and discard
+    /// Pressing save commits the round to memory and navigates tot he RoundListView
+    /// Pressing discard destroys the round and dismisses back to CourseSelectView
     private var actionButtons: some View {
         HStack {
             // discard button
@@ -101,10 +109,10 @@ struct ScorecardView: View {
             Button {
                 logger.log("Save pressed")
                 if let completedRound = activeRoundManager.completeRound() {
-                    roundPersistence.saveRound(completedRound)
+                    roundPersistence.saveRound(completedRound) // commit round to history
                 }
                 dismiss()
-                selectedTab = 1
+                selectedTab = 1 // navigate to RoundListView
             } label: {
                 Label("Save", systemImage: "square.and.arrow.down")
                     .padding()

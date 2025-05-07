@@ -1,12 +1,7 @@
-/*
-//  CourseDetailSheet.swift
-//  HoleOut
-//
-//  Shows the CourseOverviewCard, as well
-//  as the past rounds saved at the course
-//
-//  Created by Dylan Zarn on 2024-12-22.
-*/
+/**
+ Displays the CourseOverviewCard as well as saved rounds as a list of RoundCards played at the course given
+ Displayed by pressing the 'Details' button in the CourseCard
+ */
 
 import SwiftUI
 import SwiftData
@@ -64,7 +59,7 @@ struct CourseDetailSheet: View {
             .presentationDragIndicator(.visible)
     }
     
-    // filters for rounds at the given course
+    /// filters for rounds at the given course
     private var courseRounds: [Round] {
         rounds.filter { $0.course == course }
             .sorted { $0.date > $1.date }
@@ -72,6 +67,7 @@ struct CourseDetailSheet: View {
 
     // MARK: - Components
     
+    /// displays course name as large header
     private var courseHeader: some View {
         HStack {
             Text(course.name)

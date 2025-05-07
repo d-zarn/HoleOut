@@ -1,15 +1,13 @@
-//
-//  CourseDetailView.swift
-//  HoleOut
-//
-//  Created by Dylan Zarn on 2024-12-22.
-//
+/**
+ Displays course details. Includes to, and front / back 9 par, tee total yardages, address
+ Used in the CourseDetailSheet
+ */
 
 import SwiftUI
 
 struct CourseOverviewCard: View {
-    private let course: Course
     
+    private let course: Course
     private let logger = Logger(origin: "CourseDetailView")
     
     init(for course: Course) {
@@ -25,14 +23,19 @@ struct CourseOverviewCard: View {
     
     // MARK: - Components
     
+    /// Displays address and yardages
     private var headerSection: some View {
         VStack {
+            
+            /// Course address
             HStack {
                 courseHeader
                 Spacer()
             }
             
             Divider()
+            
+            /// Pars and yardages
             HStack {
                 statLine
                 Spacer()
@@ -41,6 +44,7 @@ struct CourseOverviewCard: View {
         }
     }
     
+    /// Course info
     private var courseHeader: some View {
         VStack(alignment: .leading) {
             Text("Course Overview")
@@ -53,6 +57,7 @@ struct CourseOverviewCard: View {
         }
     }
     
+    /// Par breakdowns
     private var statLine: some View {
             VStack(alignment: .leading) {
                 StatItem(label: "Front", value: course.frontPar)

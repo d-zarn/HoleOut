@@ -1,9 +1,6 @@
-//
-//  StatItem.swift
-//  HoleOut
-//
-//  Created by Dylan Zarn on 2024-12-22.
-//
+/**
+ Shared view for statistics listing. Shades the stat label and value differently as a string
+ */
 
 import SwiftUI
 

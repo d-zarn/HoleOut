@@ -1,9 +1,7 @@
-//
-//  RelativeScore.swift
-//  HoleOut
-//
-//  Created by Dylan Zarn on 2024-12-22.
-//
+/**
+ Shared view for displaying how far over / under score is relative to par.
+ 1-9 over is in orange, 10-15 over in red, anything under par is in green
+ */
 
 import SwiftUI
 

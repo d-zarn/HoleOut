@@ -1,9 +1,6 @@
-//
-//  RoundPersistenceManager.swift
-//  HoleOut
-//
-//  Created by Dylan Zarn on 2025-05-03.
-//
+/**
+ Handles round persistence operations for saving and deleting rounds
+ */
 
 import SwiftUI
 import SwiftData
@@ -46,7 +43,7 @@ class RoundPersistenceManager: ObservableObject {
     
     // MARK: - Complete and Save
     
-    /// Takes a completedround from ActiveRoundManager and saves it
+    /// Takes a completedRound from ActiveRoundManager and saves it
     func completeAndSaveRound(_ round: Round) {
         saveRound(round)
         logger.log("Round completed and saved", level: .success)

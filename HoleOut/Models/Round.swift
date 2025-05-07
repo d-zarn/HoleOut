@@ -1,9 +1,6 @@
-//
-//  Round.swift
-//  HoleOut
-//
-//  Created by Dylan Zarn on 2024-12-20.
-//
+/**
+ Only model needed to be saved. Created when 'Start Round' button is pressed on the CourseCard, Saved or discarded with buttons in ScorecardView
+ */
 
 import Foundation
 import SwiftData
@@ -23,7 +20,7 @@ final class Round {
     var playedHoles: [Bool]
     
     var course: Course {
-            // First try by ID
+            // First try to pull by ID
             if let course = CourseRepository.shared.getCourse(byId: courseId) {
                 return course
             }
@@ -35,7 +32,7 @@ final class Round {
                 return course
             }
             
-            // Log error and return a default course as last resort
+            // Log error and return a default course (first course, St. Boniface) as last resort
             let logger = Logger(origin: "Round")
             logger.log("Failed to find course with ID \(courseId) or name \(courseName)", level: .error)
             
@@ -61,6 +58,7 @@ final class Round {
     
     // MARK: - Computed properties
     
+    /// computes total score for holes played
     var totalScore: Int {
         zip(scores, playedHoles)
             .filter {_, played in played}
@@ -68,6 +66,7 @@ final class Round {
             .reduce(0,+)
     }
     
+    /// computes the par for the holes played
     var parForPlayedHoles: Int {
         let total = zip(course.holes, playedHoles)
             .filter {_, played in played }
@@ -80,6 +79,7 @@ final class Round {
             return total
     }
     
+    /// computes score on the front nine
     var frontNine: Int {
         zip(scores.prefix(9), playedHoles.prefix(9))
             .filter { _, played in played }
@@ -87,6 +87,7 @@ final class Round {
             .reduce(0,+)
     }
     
+    /// computes score on the back nine
     var backNine: Int {
         zip(scores.suffix(9), playedHoles.suffix(9))
             .filter { _, played in played }
@@ -94,18 +95,22 @@ final class Round {
             .reduce(0,+)
     }
     
+    /// Checks if all 18 holes were played
     var isComplete: Bool {
         holesPlayed == course.holes.count
     }
     
+    /// checks if at least 1 hole and less than 18 were played
     var isPartial: Bool {
         holesPlayed > 0 && !isComplete
     }
     
+    /// computes the length of the round, converts to minutes
     private var duration: TimeInterval? {
         startTime.map { (endTime ?? Date()).timeIntervalSince($0) }
     }
     
+    /// converts the duration to a string format
     var roundDuration: String? {
         duration.map { duration in
             let hours = Int(duration) / 3600
@@ -113,6 +118,7 @@ final class Round {
             return hours > 0 ? "\(hours)h \(minutes)m" : "\(minutes)m"}
     }
     
+    /// converts the date to a string format
     var dateString: String {
         date.formatted(date: .abbreviated, time: .omitted)
     }

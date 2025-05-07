@@ -1,9 +1,6 @@
-//
-//  HoleScoringCard.swift
-//  HoleOut
-//
-//  Created by Dylan Zarn on 2024-12-23.
-//
+/**
+ Used in ScorecardView. Contains buttons and gestures for scoring as well as the information for each hole
+ */
 
 import SwiftUI
 
@@ -17,16 +14,17 @@ struct HoleScoringCard: View {
     @State private var longPressProgress: CGFloat = 0.0
     @State private var showConfirmationIcon = false
     
+    /// checks if the hole has been played to control text dimming
     private var isHolePlayed: Bool {
         activeRoundManager.currentRound?.playedHoles[hole.id-1] ?? false
     }
     
-    /// dims unplayed holes
+    /// dims unplayed holes until long pressed / score is adjusted
     private var textColor: Color {
         if isLongPressing && longPressProgress > 0.05 {
-            return longPressProgress > 0.6 ? .green :
-            longPressProgress > 0.3 ? .green.opacity(0.7) :
-                .secondary.opacity(0.6 + (longPressProgress * 0.6))
+            return longPressProgress > 0.3 ? .green :
+            longPressProgress > 0.1 ? .green.opacity(0.7) :
+                .secondary.opacity(0.6 + (longPressProgress * 0.3))
         } else {
             return isHolePlayed ? .primary : .secondary.opacity(0.6)
         }
@@ -72,6 +70,7 @@ struct HoleScoringCard: View {
     
     // MARK: - Gesture
     
+    /// Used for scoring par on an unscored hole
     private var longPressGesture: some Gesture {
         LongPressGesture(minimumDuration: 0.6, maximumDistance: 20)
                 .onChanged { _ in
@@ -121,6 +120,7 @@ struct HoleScoringCard: View {
     
     // MARK: - Components
     
+    /// lists hole ID, yardages, and type
     private var holeDetails: some View {
         HStack{
             VStack(alignment: .leading) {
@@ -138,6 +138,7 @@ struct HoleScoringCard: View {
                     .animation(.easeInOut(duration: 0.3), value: isHolePlayed)
             }
             Spacer()
+            // hole type
             Image(systemName: hole.holeType.rawValue)
                 .font(.largeTitle)
                 .foregroundStyle(textColor)
@@ -146,8 +147,9 @@ struct HoleScoringCard: View {
         }
     }
     
+    /// Shows the users current score on the hole. Dimmed if unscored yet. Defaults to hole.par
+    /// Reacts to the scoring buttons and is updated on change
     private var scoreIndicator: some View {
-        
         VStack (alignment: .trailing, spacing: -10){
             Spacer()
             RelativeScore(par: hole.par, score: score)
@@ -175,6 +177,7 @@ struct HoleScoringCard: View {
     
     // MARK: - Buttons
     
+    /// Scoring buttons stack, add stroke on top, remove on bottom
     private var buttonStack: some View {
         VStack {
             addStroke
@@ -183,6 +186,7 @@ struct HoleScoringCard: View {
         }
     }
     
+    /// Subtracts a stroke from the score
     private var subtractStroke: some View {
         Button {
             if score > 1 {
@@ -209,6 +213,7 @@ struct HoleScoringCard: View {
         .foregroundStyle(.green)
     }
     
+    /// adds a stroke to the score
     private var addStroke: some View {
         Button {
             if score < 15 {

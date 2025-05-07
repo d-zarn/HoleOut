@@ -1,9 +1,7 @@
-//
-//  RoundListView.swift
-//  HoleOut
-//
-//  Created by Dylan Zarn on 2024-12-29.
-//
+/**
+ Displays the list of saved rounds as RoundCards in descending order by date.
+ Searchable by date and course.
+ */
 
 import SwiftUI
 import SwiftData
@@ -15,7 +13,7 @@ struct RoundListView: View {
     @EnvironmentObject private var roundPersistence: RoundPersistenceManager
     private let logger = Logger(origin: "RoundListView")
     
-    // allow search by course or date
+    /// allows search by course or date
     private var searchResults: [Round] {
         if searchText.isEmpty {
             return rounds

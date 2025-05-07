@@ -1,9 +1,8 @@
-//
-//  CourseRepository.swift
-//  HoleOut
-//
-//  Created by Dylan Zarn on 2024-11-03.
-//
+/**
+ Contains the list of courses available to the user.
+ Hardcoded for each course. Courses can be retrieved by name or ID.
+ */
+
 
 import Foundation
 
@@ -13,18 +12,22 @@ class CourseRepository {
     
     private init() {}
     
+    /// returns course matching ID given
     func getCourse(byId id: UUID) -> Course? {
         return courses.first { $0.id == id }
     }
     
+    /// returns course matching name given
     func getCourse(byName name: String) -> Course? {
         return courses.first { $0.name == name }
     }
     
+    /// returns array of all available courses
     func getAllCourses() -> [Course] {
         return courses
     }
     
+    /// Available courses
     private let courses: [Course] = [
         .stBoniface,
         .southside,

@@ -1,9 +1,6 @@
-//
-//  Logger.swift
-//  HoleOut
-//
-//  Created by Dylan Zarn on 2024-12-10.
-//
+/**
+ Provides basic logging for debugging
+ */
 
 import Foundation
 import SwiftUI

@@ -1,16 +1,14 @@
-//
-//  ActiveRoundManager.swift
-//  HoleOut
-//
-//  Created by Dylan Zarn on 2025-05-03.
-//
+/**
+ Handles active round interaction operations.
+ Provides bindings for scoring holes, and functions for saving and abandoning rounds.
+ */
 
 import SwiftUI
 import SwiftData
 class ActiveRoundManager : ObservableObject {
     // MARK: - Properties
     
-    // The active round being played
+    /// The active round being played
     @Published private(set) var currentRound: Round?
     @Published var scoreBindings: [Binding<Int>] = []
     
@@ -18,9 +16,9 @@ class ActiveRoundManager : ObservableObject {
     
     // MARK: - Round Management
     
-    // Updates the score for a specified hole
+    /// Updates the score for the specified hole
     func updateScore(for holeIndex: Int, score: Int) {
-        guard var round = currentRound,
+        guard let round = currentRound,
               holeIndex < round.scores.count else { return }
         round.scores[holeIndex] = score
         round.playedHoles[holeIndex] = true
@@ -31,7 +29,7 @@ class ActiveRoundManager : ObservableObject {
         logger.log("Updated score to \(score) for hole \(holeIndex)", level: .success)
     }
     
-    // Starts a new round at the given course
+    /// Starts a new round at the given course, sets the bindings appropriately
     func startNewRound(at course: Course) {
         currentRound = Round(at: course)
         
@@ -53,12 +51,12 @@ class ActiveRoundManager : ObservableObject {
         }
     }
     
-    
+    /// sets the end time for the round, nulls the current and returns the completed round
     func completeRound() -> Round? {
         guard let round = currentRound else { return nil }
         
         // set end time
-        var completedRound = round
+        let completedRound = round
         completedRound.endTime = Date()
         
         // clear current round
@@ -68,25 +66,11 @@ class ActiveRoundManager : ObservableObject {
         return completedRound
     }
     
+    /// nulls the current round
     func abandonRound() {
         currentRound = nil
         logger.log("Round abandoned", level: .info)
     }
-    
-    // MARK: - Bindings
-    
-    // creates bindings for hole scores to use in views
-    
-//    var scoreBindings: [Binding<Int>] {
-//        guard let round = currentRound else { return [] }
-//        
-//        return round.scores.indices.map { index in
-//            Binding(
-//                get: { round.scores[index] },
-//                set: { self.updateScore(for: index, score: $0) }
-//            )
-//        }
-//    }
 }
 
 extension ActiveRoundManager {

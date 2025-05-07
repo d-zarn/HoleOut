@@ -1,13 +1,11 @@
-//
-//  Hole.swift
-//  HoleOut
-//
-//  Created by Dylan Zarn on 2024-12-20.
-//
+/**
+ Represents the hole. Each hole gets an integer ID to indicate its order, a par, yardages, and a type
+ */
 
 import Foundation
 import SwiftData
 
+/// type indicate direction of the hole
 enum HoleType: String, Codable {
     case straight = "arrowshape.up.fill"
     case dogLeft = "arrowshape.turn.up.left.fill"
