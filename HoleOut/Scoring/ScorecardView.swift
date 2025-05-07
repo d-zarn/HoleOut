@@ -24,11 +24,14 @@ struct ScorecardView: View {
             if let round = activeRoundManager.currentRound {
                 ScrollView {
                     VStack {
-                        ForEach(round.course.holes.indices, id: \.self) { index in
-                            HoleScoringCard(
-                                hole: round.course.holes[index],
-                                score: activeRoundManager.scoreBindings[index]
-                            )
+                        ForEach(Array(zip(round.course.holes.sorted(by: { $0.id < $1.id }).indices,
+                                          round.course.holes.sorted(by: { $0.id < $1.id }))), id: \.0) { index, hole in
+                            if index < activeRoundManager.scoreBindings.count {
+                                HoleScoringCard(
+                                    hole: round.course.holes[index],
+                                    score: activeRoundManager.scoreBindings[index]
+                                )
+                            }
                         }
                     }
                 }

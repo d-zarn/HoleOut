@@ -17,6 +17,10 @@ class CourseRepository {
         return courses.first { $0.id == id }
     }
     
+    func getCourse(byName name: String) -> Course? {
+        return courses.first { $0.name == name }
+    }
+    
     func getAllCourses() -> [Course] {
         return courses
     }

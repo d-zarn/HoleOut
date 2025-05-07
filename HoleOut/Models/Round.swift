@@ -18,22 +18,40 @@ final class Round {
     var startTime: Date?
     var endTime: Date?
     var courseId: UUID
-    
-    var course: Course {
-        
-        guard let course = CourseRepository.shared.getCourse(byId: courseId) else {
-            Logger(origin: "Round").log("Failed to find course with ID \(courseId)", level: .error)
-            return CourseRepository.shared.getAllCourses()[0]
-        }
-        return course
-    }
-    
+    var courseName: String
     var scores: [Int]
     var playedHoles: [Bool]
+    
+    var course: Course {
+            // First try by ID
+            if let course = CourseRepository.shared.getCourse(byId: courseId) {
+                return course
+            }
+            
+            // If ID lookup fails, try by name
+            if let course = CourseRepository.shared.getCourse(byName: courseName) {
+                // Update the ID for future reference
+                courseId = course.id
+                return course
+            }
+            
+            // Log error and return a default course as last resort
+            let logger = Logger(origin: "Round")
+            logger.log("Failed to find course with ID \(courseId) or name \(courseName)", level: .error)
+            
+            let defaultCourse = CourseRepository.shared.getAllCourses()[0]
+            courseId = defaultCourse.id
+            courseName = defaultCourse.name
+            
+            return defaultCourse
+        }
+    
+    
 
     init(at course: Course) {
         self.id = UUID()
         self.courseId = course.id
+        self.courseName = course.name
         self.date = Date()
         self.scores = course.holes.map { $0.par }
         self.playedHoles = Array(repeating: false, count: course.holes.count)

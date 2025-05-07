@@ -166,11 +166,6 @@ struct HoleScoringCard: View {
                     .animation(.spring(response: 0.1), value: score)
                     .foregroundStyle(textColor)
                     .animation(.easeInOut(duration: 0.15), value: isHolePlayed)
-                    .onTapGesture {
-                        if isHolePlayed {
-                            activeRoundManager.updateScore(for: hole.id - 1, score: hole.par)
-                        }
-                    }
             }
             .frame(width: 75, height: 100)
         }
@@ -178,7 +173,8 @@ struct HoleScoringCard: View {
         .padding(.leading)
     }
     
-    // MARK: Buttons
+    // MARK: - Buttons
+    
     private var buttonStack: some View {
         VStack {
             addStroke
