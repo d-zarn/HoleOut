@@ -71,6 +71,42 @@ class CourseService: ObservableObject {
         }
     }
     
+    // MARK: - Round-Course Methods
     
+    /// Resolves the course for a given round, using ID or name
+    /// - Parameter round: The round to find the course for
+    /// - Returns: The course associated with the round
+    func getCourseForRound(_ round: Round) -> Course {
+        // first try by ID
+        if let course = getCourse(byID: round.courseId) {
+            logger.log("Found course by ID for round")
+            return course
+        }
+        
+        if let course = getCourse(byName: round.courseName) {
+            // update the rounds course ID if ID search failed
+            round.courseId = course.id
+            logger.log("Found course by Name for round, updated ID")
+            return course
+        }
+        
+        logger.log("Failed to find course with ID \(round.courseId) or name \(round.courseName). Returning default.", level: .error)
+        
+        let defaultCourse = getDefaultCourse()
+        round.courseId = defaultCourse.id
+        round.courseName = defaultCourse.name
+        
+        return defaultCourse
+    }
     
+    /// Gets rounds plated at a specific course
+    /// - Parameters:
+    ///   - course: The course to filter by
+    ///   - rounds: Array of all rounds to filter
+    /// - Returns: Array of rounds played at given course
+    func getRoundsForCourse(_ course: Course, from rounds: [Round]) -> [Round] {
+        logger.log("Filtering rounds from course: \(course.name)")
+        return rounds.filter { $0.courseId == course.id }
+            .sorted { $0.date > $1.date }
+    }
 }
