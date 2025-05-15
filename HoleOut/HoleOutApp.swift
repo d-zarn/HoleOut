@@ -13,6 +13,7 @@ struct HoleOutApp: App {
     
     @StateObject private var activeRoundManager = ActiveRoundManager()
     @StateObject private var roundPersistence: RoundPersistenceManager
+    @StateObject private var courseService = CourseService()
     @State private var selectedTab = 0
     let sharedModelContainer: ModelContainer
     
@@ -49,6 +50,7 @@ struct HoleOutApp: App {
             .modelContainer(sharedModelContainer)
             .environmentObject(activeRoundManager)
             .environmentObject(roundPersistence)
+            .environmentObject(courseService)
         }
     }
 }
