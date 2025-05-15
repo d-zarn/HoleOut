@@ -1,5 +1,7 @@
 /**
- Only model needed to be saved. Created when 'Start Round' button is pressed on the CourseCard, Saved or discarded with buttons in ScorecardView
+ Only model needed to be saved.
+ Created when 'Start Round' button is pressed on the CourseCard,
+ Saved or discarded with buttons in ScorecardView
  */
 
 import Foundation
