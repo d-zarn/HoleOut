@@ -8,22 +8,16 @@ import SwiftUI
 
 struct CourseSelectView: View {
     
+    @EnvironmentObject private var courseService: CourseService
     @Binding var selectedTab: Int
     @State private var searchText = ""
-    private let logger = Logger(origin: "CourseSelectView")
     
-    /// Allow search by name or address.
-    /// Contains all courses if no search is entered.
-    private var searchResults: [Course] {
-        if searchText.isEmpty {
-            return CourseRepository.shared.getAllCourses()
-        }
-        return CourseRepository.shared.getAllCourses().filter { course in
-            course.name.localizedCaseInsensitiveContains(searchText) ||
-            course.address.localizedCaseInsensitiveContains(searchText)
-        }
-    }
+    private let logger = Logger(origin: "CourseSelectView")
 
+    private var searchResults: [Course] {
+        courseService.searchCourses(searchText: searchText)
+    }
+    
     /// If search results are empty, shows ContentUnavailable.
     /// If no search is entered, show all courses
     var body: some View {
@@ -52,6 +46,9 @@ struct CourseSelectView: View {
             }
             .navigationTitle("Select Course")
             .searchable(text: $searchText, prompt: "Search courses")
+        }
+        .onAppear {
+            logger.log("Loaded")
         }
     }
 
