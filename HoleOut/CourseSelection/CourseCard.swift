@@ -10,6 +10,7 @@ struct CourseCard: View {
     @State private var showingCourseDetail = false
     @State private var showingScorecardView = false
     @EnvironmentObject private var activeRoundManager: ActiveRoundManager
+    @EnvironmentObject private var courseService: CourseService
     @Binding var selectedTab: Int
     private let course: Course
     private let logger: Logger
@@ -74,6 +75,7 @@ struct CourseCard: View {
     private var previewCourseButton: some View {
         Button {
             showingCourseDetail = true
+            logger.log("Detail Pressed")
         } label: {
             Label("Details", systemImage: "info.circle")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -85,6 +87,7 @@ struct CourseCard: View {
     /// Shows the ScorecardView on tap
     private var startRoundButton: some View {
         Button {
+            logger.log("Start Round Pressed")
             activeRoundManager.startNewRound(at: course)
             showingScorecardView = true
         } label: {
