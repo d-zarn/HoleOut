@@ -1,7 +1,7 @@
 /**
  Opening view.
  Displays the list of avaliable courses as CourseCards.
- Can be searched by address or course name. Acts as a constant bottom tab.
+ Can be searched by address or course name.
  */
 
 import SwiftUI
