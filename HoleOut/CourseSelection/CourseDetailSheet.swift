@@ -12,12 +12,12 @@ struct CourseDetailSheet: View {
     @Query private var rounds: [Round]
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var courseService: CourseService
     
     private let logger: Logger
     
     init(for course: Course) {
         self.course = course
-        
         _rounds = Query()
         self.logger = Logger(origin: "CourseDetailSheet: \(course.name)")
     }
@@ -61,8 +61,7 @@ struct CourseDetailSheet: View {
     
     /// filters for rounds at the given course
     private var courseRounds: [Round] {
-        rounds.filter { $0.course == course }
-            .sorted { $0.date > $1.date }
+        courseService.getRoundsForCourse(course, from: rounds)
     }
 
     // MARK: - Components
