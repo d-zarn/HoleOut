@@ -18,8 +18,8 @@ final class Tee {
     var rating: Double
     var slope: Int
     
-    init(colorName: String, yardage: Int, par: Int, rating: Double = 0.0, slope: Int = 0) {
-        self.colorName = colorName
+    init(yardage: Int, color: String, rating: Double = 0, slope: Int = 0, par: Int) {
+        self.colorName = color
         self.yardage = yardage
         self.par = par
         self.rating = rating
