@@ -5,7 +5,7 @@
 import Foundation
 
 
-final class Course {
+final class Course: Identifiable {
     
     // MARK: - Properties
     

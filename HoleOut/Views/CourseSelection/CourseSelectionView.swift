@@ -27,14 +27,25 @@ struct CourseSelectionView: View {
                 } else {
                     ScrollView {
                         VStack {
-                            Text("Put some cards here dawg")
+                            ForEach(vm.searchResults, id: \.name) { course in
+                                CourseSelectionCard(course: course)
+                            }
                         }
                     }
                 }
             }
-            .navigationTitle("Select Course")
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Select Course")
+                        .font(.largeTitle)
+                        .fontWeight(.heavy)
+                        .fontDesign(.serif)
+                }
+            }
             .searchable(text: $vm.searchText, prompt: "Search courses")
+            .background(Color("background").ignoresSafeArea())
         }
+        
         
     }
 }
@@ -43,3 +54,4 @@ struct CourseSelectionView: View {
     let vm = CourseSelectionViewModel()
     CourseSelectionView(selectedTab: .constant(0))
 }
+
