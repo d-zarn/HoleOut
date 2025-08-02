@@ -16,12 +16,16 @@ struct CourseSelectionCard: View {
             VStack(alignment: .leading) {
                 Text(course.name)
                     .foregroundStyle(Color("text"))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
                     .padding(.horizontal)
                     .padding(.top)
                     .font(.title)
                     .fontDesign(.serif)
                 Text(course.address)
                     .foregroundStyle(Color("text-secondary"))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
                     .padding(.bottom)
                     .padding(.horizontal)
                 
