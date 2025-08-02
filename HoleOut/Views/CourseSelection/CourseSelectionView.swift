@@ -8,11 +8,43 @@
 import SwiftUI
 
 struct CourseSelectionView: View {
+    
+    @Binding var selectedTab: Int
+    @StateObject private var vm = CourseSelectionViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack{
+            Group {
+                if vm.searchResults.isEmpty {
+                    VStack {
+                        Spacer()
+                        ContentUnavailableView("No courses matching \(vm.searchText)",
+                                               image: "flag.slash",
+                                               description: Text("Try searching for a different course")
+                        )
+                        Spacer()
+                    }
+                } else {
+                    ScrollView {
+                        VStack {
+                            ForEach(vm.searchResults, id: \.name) { course in
+                                CourseSelectionCard(course: course)
+                            }
+                        }
+                    }
+                }
+            }
+            .navigationTitle("Select Course")
+            .searchable(text: $vm.searchText, prompt: "Search courses")
+            .background(Color("background").ignoresSafeArea())
+        }
+        
+        
     }
 }
 
 #Preview {
-    CourseSelectionView()
+    let vm = CourseSelectionViewModel()
+    CourseSelectionView(selectedTab: .constant(0))
 }
+
