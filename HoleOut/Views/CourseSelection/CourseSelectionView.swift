@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct CourseSelectionView: View {
+    
+    @Binding var selectedTab: Int
+    
+    
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    CourseSelectionView()
+    CourseSelectionView(selectedTab: .constant(0))
 }

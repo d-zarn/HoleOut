@@ -10,6 +10,9 @@ import SwiftData
 
 @main
 struct HoleOutApp: App {
+    
+    @State private var selectedTab = 0
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
@@ -25,7 +28,12 @@ struct HoleOutApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabView(selection: $selectedTab) {
+                CourseSelectionView(selectedTab: $selectedTab)
+                    .tabItem {
+                        Label("Courses", systemImage: "house.and.flag")
+                    }
+            }
         }
         .modelContainer(sharedModelContainer)
     }
