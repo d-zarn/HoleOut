@@ -34,6 +34,7 @@ struct HoleOutApp: App {
                         Label("Courses", systemImage: "house.and.flag")
                     }
             }
+            .tint(Color("prim-green"))
         }
         .modelContainer(sharedModelContainer)
     }
