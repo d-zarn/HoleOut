@@ -14,7 +14,7 @@ final class Course {
     var holes: [Hole]
     var tees: [Tee]
     
-    init(name: String, address: String, holes: [Hole], tees: [Tee]) {
+    init(name: String, address: String, tees: [Tee], holes: [Hole]) {
         self.name = name
         self.address = address
         self.holes = holes

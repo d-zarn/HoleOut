@@ -13,7 +13,7 @@ final class Hole {
     var score: Int
     var played: Bool = false
     
-    init(number: Int, tees: [Tee], score: Int) {
+    init(number: Int, tees: [Tee], score: Int = 0) {
         self.number = number
         self.tees = tees
         self.score = score
