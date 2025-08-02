@@ -13,6 +13,7 @@ struct CourseSelectionCard: View {
     
     var body: some View {
         HStack {
+            Spacer()
             VStack(alignment: .leading) {
                 Text(course.name)
                     .foregroundStyle(Color("text"))
@@ -21,16 +22,17 @@ struct CourseSelectionCard: View {
                     .padding(.horizontal)
                     .padding(.top)
                     .font(.title)
-                    .fontDesign(.serif)
+                    .fontWeight(.bold)
                 Text(course.address)
                     .foregroundStyle(Color("text-secondary"))
                     .lineLimit(1)
                     .minimumScaleFactor(0.7)
                     .padding(.bottom)
                     .padding(.horizontal)
-                
             }
+            
             Spacer()
+            
             Image(systemName: "chevron.right")
                 .padding(.horizontal)
                 .foregroundStyle(Color("text-secondary"))

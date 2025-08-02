@@ -34,14 +34,7 @@ struct CourseSelectionView: View {
                     }
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("Select Course")
-                        .font(.largeTitle)
-                        .fontWeight(.heavy)
-                        .fontDesign(.serif)
-                }
-            }
+            .navigationTitle("Select Course")
             .searchable(text: $vm.searchText, prompt: "Search courses")
             .background(Color("background").ignoresSafeArea())
         }
