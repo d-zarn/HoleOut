@@ -31,10 +31,7 @@ struct CourseSelectionCard: View {
                 .padding(.horizontal)
                 .foregroundStyle(Color("text-secondary"))
         }
-        .background(
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(Color("background-secondary"))
-        )
+        .glassEffect()
         .padding(.horizontal)
         .padding(.vertical, 5)
     }
